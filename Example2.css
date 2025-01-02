@@ -33,7 +33,7 @@ p {
 /* Format my heading */
 h1 {
 	font-family: "Cormorant", serif;
-	font-variant: small-caps;
+	font-variant: normal;
 	font-size: 60px;
 	color: #320064;
 	font-weight: 900;
