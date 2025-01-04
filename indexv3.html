@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harsh Bhatt</title>
+    <link rel="stylesheet" href="styles1.css">
+    <style>
+        /* Make the video cover the entire screen */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the video covers the screen */
+            z-index: -1; /* Places the video behind content */
+        }
+
+        /* Style for content */
+        .content {
+            position: relative;
+            z-index: 1;
+            color: white;
+            text-align: left;
+    
+            margin: 20px;
+             transform: translateX(0.5in);
+             font-size: 2.6 rem;
+             padding: 30px 30px 30px 30px;
+             line-height: 1.6;
+  
+        }
+    </style>
+</head>
+<body>
+    <!-- Video Background -->
+    <video autoplay muted loop>
+        <source src="vid2i.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <nav class="links">
+        <a href="#portfolio">PP434 Portfolio</a>
+        <a href="#projects">PP434 Project</a>
+        <a href="https://github.com/h-bhatt" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/harshbhatt008">LinkedIn</a>
+        <a href="#other">Other Projects</a>
+        <a href="mailto:harshbhatt.lse@gmail.com?subject=Let's%20Connect&body=Hi!%20I%20came%20across%20your%20profile.">Email Me</a>
+    </nav>
+    <!-- Content Overlay -->
+    <div class="content">
+        <h1>H Bhatt.</h1>
+        <p>Namaste! I'm Harsh. I'm a policy and data enthusiast who loves creating meaningful projects. Explore my links to learn more about my work and to connect with me.</p>
+    </div>
+</body>
+</html>
