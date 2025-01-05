@@ -38,7 +38,7 @@
     <h3 class="small"> 
         Welcome to my portfolio. 
 
-    <!-- To the page into sections, with each section containing a chart, title and a description -->
+    <!-- Week 1 -->
     <section>
         <div class="chart-description">
             <h2>Week 1 - Hosting. Display charts on your own site.  </h2>
@@ -50,6 +50,30 @@
         <figure id="Location2"></figure>
     </section>
 
+       
+ <!-- Week 2 -->
+          <section>
+        <div class="chart-description">
+            <h2>Week 2 - Building. Create your own visualisations.  </h2>
+            <p> 
+                I've created two charts using the "create" function on <a href="https://www.economicsobservatory.com">Economics Observatory.</a>. 
+            </p>
+        </div>
+      <div id="chartGrid">
+            <figure id="Indexp"></figure>
+            <figure id="Indimp"></figure>
+        </div>
+        <div class="chart-description">
+            <p>
+                I took the Imports/exports data from the Economics Observatory and used "layer" on vegalite to combine it into one chart.
+            </p>
+            <figure id="impexpcomb"></figure>
+
+        </div>
+    </section>
+
+       
+       
        <script>
         // This is a comment in JavaScript - it's a different language to HTML and CSS
 
@@ -57,6 +81,9 @@
         let figure_2_spec = "chartLine3.json";                                                                              
         vegaEmbed('#Location1', figure_1_spec) // We're using the vegaEmbed function to put a graph in the element with id figure_1
         vegaEmbed('#Location2', figure_2_spec)
+        vegaEmbed("#Indimp", 'wk2_imports.json')
+        vegaEmbed("#Indexp", 'wk2_exports.json')
+        vegaEmbed("#impexpcomb", 'wk2_comb.json')
 
 
     </script>
