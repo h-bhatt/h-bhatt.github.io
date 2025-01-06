@@ -39,12 +39,12 @@
 </h2>
     </p>
     <h3 class="small"> 
-        
-    
+   
+
     <!-- Week 1 -->
     <section>
         <div class="chart-description">
-            <h2>Week 1 - Hosting. Display charts on your own site.  </h2>
+            <h2>CC1 - Hosting charts on your own site.  </h2>
             <p> 
                 I've added two charts using the "vegaembed" function. The charts have been taken without any alterations from <a href="https://rdeconomist.github.io/library">this website.</a>
             </p>
@@ -52,14 +52,13 @@
         <figure id="Location1"></figure> <!-- we give it an id so we can put a vega-lite graph here with VegaEmbed -->
         <figure id="Location2"></figure>
     </section>
-
        
  <!-- Week 2 -->
           <section>
         <div class="chart-description">
-            <h2>Week 2 - Building. Create your own visualisations.  </h2>
+            <h2>CC2 - Create your own visualisations.  </h2>
             <p> 
-                I've created two charts using the "create" function on <a href="https://www.economicsobservatory.com">Economics Observatory.</a>. 
+                I've created two charts using the "create" function on <a href="https://www.economicsobservatory.com">Economics Observatory.</a>
             </p>
         </div>
       <div id="chartGrid">
@@ -71,12 +70,44 @@
                 I took the Imports/exports data from the Economics Observatory and used "layer" on vegalite to combine it into one chart.
             </p>
             <figure id="impexpcomb"></figure>
-
         </div>
     </section>
 
-       
-       
+
+ <!-- Week 3 -->
+        <section>
+            <div class="chart-description">
+                <h2>CC3 - Use a visualisation in economic/policy commentary.</h2>
+                <p> 
+                    I'm discussing the question "Trading nation: How can we get Britain exporting again?" which was one of the key themes at the  <a href="https://www.economicsobservatory.com/festival-of-economics-2024">Festival of Economics 2024.</a>
+                </p>
+            </div>
+        
+                <figure id="ukexp"></figure>
+
+                <p>
+                    The UK's exports have consistently increased. Currently, it is 13th largest exporting nation in the world. However, it used to have much high export share in world trade.
+                </p>
+
+                <figure id="ukgdpexp"></figure>
+
+            <div class="chart-description">
+                <p>
+                    The UK's exports are rising but remain insufficient to offset its persistently negative trade balance. Aligning export strategies with GDP growth and addressing trade barriers is critical.
+
+                </p>
+                <figure id="uktradbal"></figure>
+            </div>
+        </section>
+
+        <!-- Week 4 -->
+        <!-- Week 5 -->
+        <!-- Week 6 -->
+        <!-- Week 7 -->
+        <!-- Week 8 -->
+        <!-- Week 9 -->
+        <!-- Week 10 -->
+
        <script>
         // This is a comment in JavaScript - it's a different language to HTML and CSS
 
@@ -87,6 +118,11 @@
         vegaEmbed("#Indimp", 'wk2_imp.json')
         vegaEmbed("#Indexp", 'wk2_exp.json')
         vegaEmbed("#impexpcomb", 'wk2_com.json')
+        vegaEmbed("#ukexp", 'wk3_uk_exp.json')
+        .catch(error => console.error("Error rendering ukexp chart:", error));
+        vegaEmbed("#ukgdpexp", 'wk3_uk_gdp_exp.json')
+        vegaEmbed("#uktradbal", 'wk3_uk_trad_bal.json')
+
 
 
     </script>
