@@ -49,6 +49,8 @@ body { /* We can style any HTML element by using its name - here we're styling t
   
   section {
     margin-bottom: 2.5em;  /* We want a little more space between sections */
+       margin-left: 7%;
+    margin-right: 7%;
   }
   
   /* Links */
