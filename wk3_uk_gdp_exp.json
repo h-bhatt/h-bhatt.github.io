@@ -1,0 +1,183 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "autosize": {"type": "fit", "contains": "padding"},
+  "background": "#ffffff",
+  "padding": 5,
+  "width": 400,
+  "height": 250,
+  "title": {
+    "text": "Real Exports and GDP - UK",
+    "anchor": "start",
+    "subtitle": "Total trade and GDP, £ million GBP | Source: ONS through ECO API",
+    "fontSize": 16,
+    "subtitleFontSize": 12,
+    "subtitleFont": "Helevetica",
+    "color": "#000000",
+    "subtitleColor": "#000000"
+  },
+  "style": "cell",
+  "encode": {
+    "update": {"fill": {"value": "#ffffff"}, "strokeOpacity": {"value": 0}}
+  },
+  "data": [
+    {
+      "name": "source_0",
+      "url": "https://api.economicsobservatory.com/gbr/gdp_r?vega",
+      "format": {"type": "json", "parse": {"date": "date"}},
+      "transform": [
+        {
+          "type": "impute",
+          "field": "value",
+          "groupby": [],
+          "key": "date",
+          "method": "value",
+          "value": 0
+        },
+        {
+          "type": "stack",
+          "groupby": ["date"],
+          "field": "value",
+          "sort": {"field": [], "order": []},
+          "as": ["value_start", "value_end"],
+          "offset": "zero"
+        }
+      ]
+    },
+    {
+      "name": "source_1",
+      "url": "https://api.economicsobservatory.com/gbr/expo_r?vega",
+      "format": {"type": "json", "parse": {"date": "date"}},
+      "transform": [
+        {
+          "type": "impute",
+          "field": "value",
+          "groupby": [],
+          "key": "date",
+          "method": "value",
+          "value": 0
+        },
+        {
+          "type": "stack",
+          "groupby": ["date"],
+          "field": "value",
+          "sort": {"field": [], "order": []},
+          "as": ["value_start", "value_end"],
+          "offset": "zero"
+        }
+      ]
+    }
+  ],
+  "marks": [
+    {
+      "name": "layer_0_marks",
+      "type": "area",
+      "style": ["area"],
+      "sort": {"field": "x"},
+      "from": {"data": "source_0"},
+      "encode": {
+        "update": {
+          "opacity": {"value": 1},
+          "strokeWidth": {"value": 2},
+          "orient": {"value": "vertical"},
+          "fill": {"value": "#02f64f"},
+          "description": {
+            "signal": "\"date: \" + (timeFormat(datum[\"date\"], '%b %d, %Y')) + \"; value: \" + (format(datum[\"value\"], \"\"))"
+          },
+          "x": {"scale": "x", "field": "date"},
+          "y": {"scale": "y", "field": "value_end"},
+          "y2": {"scale": "y", "field": "value_start"},
+          "defined": {
+            "signal": "isValid(datum[\"date\"]) && isFinite(+datum[\"date\"]) && isValid(datum[\"value\"]) && isFinite(+datum[\"value\"])"
+          }
+        }
+      }
+    },
+    {
+      "name": "layer_1_marks",
+      "type": "area",
+      "style": ["area"],
+      "sort": {"field": "x"},
+      "from": {"data": "source_1"},
+      "encode": {
+        "update": {
+          "opacity": {"value": 1},
+          "strokeWidth": {"value": 2},
+          "orient": {"value": "vertical"},
+          "fill": {"value": "#7200fe"},
+          "description": {
+            "signal": "\"date: \" + (timeFormat(datum[\"date\"], '%b %d, %Y')) + \"; value: \" + (format(datum[\"value\"], \"\"))"
+          },
+          "x": {"scale": "x", "field": "date"},
+          "y": {"scale": "y", "field": "value_end"},
+          "y2": {"scale": "y", "field": "value_start"},
+          "defined": {
+            "signal": "isValid(datum[\"date\"]) && isFinite(+datum[\"date\"]) && isValid(datum[\"value\"]) && isFinite(+datum[\"value\"])"
+          }
+        }
+      }
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "time",
+      "domain": {
+        "fields": [
+          {"data": "source_0", "field": "date"},
+          {"data": "source_1", "field": "date"}
+        ]
+      },
+      "range": [0, {"signal": "width"}]
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "domain": {
+        "fields": [
+          {"data": "source_0", "field": "value_start"},
+          {"data": "source_0", "field": "value_end"},
+          {"data": "source_1", "field": "value_start"},
+          {"data": "source_1", "field": "value_end"}
+        ]
+      },
+      "range": [{"signal": "height"}, 0],
+      "nice": true,
+      "zero": true
+    }
+  ],
+  "axes": [
+    {
+      "scale": "y",
+      "orient": "left",
+      "grid": true,
+      "gridScale": "x",
+      "tickCount": {"signal": "ceil(height/40)"},
+      "domain": false,
+      "labels": false,
+      "aria": false,
+      "maxExtent": 0,
+      "minExtent": 0,
+      "ticks": false,
+      "zindex": 0
+    },
+    {
+      "scale": "x",
+      "orient": "bottom",
+      "grid": false,
+      "title": "Year",
+      "labelFlush": true,
+      "labelOverlap": true,
+      "tickCount": {"signal": "ceil(width/40)"},
+      "zindex": 0
+    },
+    {
+      "scale": "y",
+      "orient": "left",
+      "grid": false,
+      "title": "£ million GBP",
+      "labelOverlap": true,
+      "tickCount": {"signal": "ceil(height/40)"},
+      "zindex": 0
+    }
+  ]
+}
