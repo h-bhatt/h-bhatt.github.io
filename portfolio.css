@@ -31,6 +31,8 @@ body { /* We can style any HTML element by using its name - here we're styling t
   
   h2 {
     font-size: 1.75em;
+    margin-left: 10%;
+    margin-right: 10%;
   }
   
   .small {
@@ -41,6 +43,8 @@ body { /* We can style any HTML element by using its name - here we're styling t
   p {
     margin-bottom: 1em;
     font-weight: 300;
+    margin-left: 7%;
+    margin-right: 7%;
   }
   
   section {
