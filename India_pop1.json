@@ -1,0 +1,46 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 500,
+    "height": 500,
+    "title": {
+      "text": "India - Choropleth Map",
+      "subtitle": ["States of India"],
+      "subtitleFontStyle": "italic",
+      "subtitleFontSize": 12,
+      "subtitlePadding": 5,
+      "color": "black"
+    },
+    "data": {
+      "url": "path_to_your_geojson/in.json",
+      "format": {"type": "json", "property": "features"}
+    },
+    "transform": [
+      {
+        "lookup": "properties.id",
+        "from": {
+          "data": {
+            "url": "path_to_your_csv/India_State_Wise.csv",
+            "format": {"type": "csv"}
+          },
+          "key": "id",
+          "fields": ["Population", "Country"]
+        }
+      },
+      {"calculate": "replace(datum.Population, ',', '')", "as": "PopulationNumeric"}
+    ],
+    "projection": {"type": "mercator"},
+    "mark": {"type": "geoshape", "stroke": "darkgray", "strokeWidth": 0.5},
+    "encoding": {
+      "color": {
+        "field": "PopulationNumeric",
+        "type": "quantitative",
+        "scale": {"scheme": "blues"}
+      },
+      "tooltip": [
+        {"field": "properties.name", "title": "State"},
+        {"field": "Country", "title": "Comparable Country"},
+        {"field": "Population", "title": "Population"}
+      ]
+    }
+  }
+  
