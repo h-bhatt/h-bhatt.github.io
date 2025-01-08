@@ -1,0 +1,12 @@
+﻿ID,id,name,PM2.5,Change2.5,PM10,Change10
+10,INDL,Delhi,102,-5.9,208.4,-3.9
+13,INHR,Haryana,87.9,-7,196.4,
+6,INBR,Bihar,77.3,-25.4,170.7,-14.9
+15,INJH,Jharkhand,70.3,,112.9,
+14,INHP,Himachal Pradesh,60.2,,134.7,
+7,INCH,Chandigarh,59.3,-5.6,118.4,13.6
+24,INOR,Odisha,57.6,16.5,119.6,-32.5
+26,INPB,Punjab,53.9,7.7,,
+12,INGJ,Gujarat,53.5,-13.3,121.9,1.5
+31,INUP,Uttar Pradesh,51.4,-51,112.7,-50.3
+27,INRJ,Rajasthan,,,112.6,-5.2
