@@ -1,0 +1,218 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "background": "#f9d2b4",
+  "padding": 5,
+  "height": 200,
+  "title": {
+    "text": "Delhi - Monthly average Temperature vs AQI",
+    "subtitleFontStyle": "italic",
+    "subtitleFontSize": 12,
+    "subtitlePadding": 5,
+    "color": "black",
+    "frame": "group"
+  },
+  "style": "cell",
+  "data": [
+    {
+      "name": "source_0",
+      "values": [
+        {
+          "month": "January",
+          "aqi": 355,
+          "temp": 13.9,
+          "rain": 19.1,
+          "humidity": 57
+        },
+        {
+          "month": "February",
+          "aqi": 218,
+          "temp": 17.6,
+          "rain": 21.3,
+          "humidity": 46
+        },
+        {
+          "month": "March",
+          "aqi": 176,
+          "temp": 22.9,
+          "rain": 17.4,
+          "humidity": 37
+        },
+        {
+          "month": "April",
+          "aqi": 182,
+          "temp": 29.1,
+          "rain": 16.3,
+          "humidity": 25
+        },
+        {
+          "month": "May",
+          "aqi": 223,
+          "temp": 32.7,
+          "rain": 30.7,
+          "humidity": 28
+        },
+        {
+          "month": "June",
+          "aqi": 179,
+          "temp": 33.3,
+          "rain": 74.1,
+          "humidity": 43
+        },
+        {"month": "July", "aqi": 96, "temp": 31.5, "rain": 209, "humidity": 63},
+        {
+          "month": "August",
+          "aqi": 72,
+          "temp": 30.4,
+          "rain": 233.1,
+          "humidity": 68
+        },
+        {
+          "month": "September",
+          "aqi": 105,
+          "temp": 29.6,
+          "rain": 123.5,
+          "humidity": 60
+        },
+        {
+          "month": "October",
+          "aqi": 234,
+          "temp": 26.2,
+          "rain": 15.1,
+          "humidity": 47
+        },
+        {
+          "month": "November",
+          "aqi": 374,
+          "temp": 20.5,
+          "rain": 6,
+          "humidity": 52
+        },
+        {
+          "month": "December",
+          "aqi": 294,
+          "temp": 15.6,
+          "rain": 8.1,
+          "humidity": 59
+        }
+      ]
+    },
+    {
+      "name": "data_0",
+      "source": "source_0",
+      "transform": [
+        {
+          "type": "stack",
+          "groupby": ["month"],
+          "field": "aqi",
+          "sort": {"field": ["temp"], "order": ["descending"]},
+          "as": ["aqi_start", "aqi_end"],
+          "offset": "zero"
+        },
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"aqi\"]) && isFinite(+datum[\"aqi\"]) && isValid(datum[\"temp\"]) && isFinite(+datum[\"temp\"])"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    {"name": "x_step", "value": 20},
+    {
+      "name": "width",
+      "update": "bandspace(domain('x').length, 0.1, 0.05) * x_step"
+    }
+  ],
+  "marks": [
+    {
+      "name": "marks",
+      "type": "rect",
+      "style": ["bar"],
+      "from": {"data": "data_0"},
+      "encode": {
+        "update": {
+          "fill": {"scale": "color", "field": "temp"},
+          "tooltip": {
+            "signal": "{\"Month\": isValid(datum[\"month\"]) ? datum[\"month\"] : \"\"+datum[\"month\"], \"AQI\": isValid(datum[\"aqi\"]) ? datum[\"aqi\"] : \"\"+datum[\"aqi\"], \"Temperature (°C)\": isValid(datum[\"temp\"]) ? datum[\"temp\"] : \"\"+datum[\"temp\"], \"Rain (mm)\": isValid(datum[\"rain\"]) ? datum[\"rain\"] : \"\"+datum[\"rain\"], \"Humidity (%)\": isValid(datum[\"humidity\"]) ? datum[\"humidity\"] : \"\"+datum[\"humidity\"]}"
+          },
+          "ariaRoleDescription": {"value": "bar"},
+          "description": {
+            "signal": "\"Month of the year: \" + (isValid(datum[\"month\"]) ? datum[\"month\"] : \"\"+datum[\"month\"]) + \"; AQI: \" + (format(datum[\"aqi\"], \"\")) + \"; Temperature (°C): \" + (format(datum[\"temp\"], \"\")) + \"; Month: \" + (isValid(datum[\"month\"]) ? datum[\"month\"] : \"\"+datum[\"month\"]) + \"; Rain (mm): \" + (isValid(datum[\"rain\"]) ? datum[\"rain\"] : \"\"+datum[\"rain\"]) + \"; Humidity (%): \" + (isValid(datum[\"humidity\"]) ? datum[\"humidity\"] : \"\"+datum[\"humidity\"])"
+          },
+          "x": {"scale": "x", "field": "month"},
+          "width": {"signal": "max(0.25, bandwidth('x'))"},
+          "y": {"scale": "y", "field": "aqi_end"},
+          "y2": {"scale": "y", "field": "aqi_start"}
+        }
+      }
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "band",
+      "domain": {"data": "data_0", "field": "month", "sort": true},
+      "range": {"step": {"signal": "x_step"}},
+      "paddingInner": 0.1,
+      "paddingOuter": 0.05
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "domain": {"data": "data_0", "fields": ["aqi_start", "aqi_end"]},
+      "range": [{"signal": "height"}, 0],
+      "nice": true,
+      "zero": true
+    },
+    {
+      "name": "color",
+      "type": "linear",
+      "domain": [10, 35],
+      "range": ["#e7ba52", "#1f77b4"],
+      "interpolate": "hcl",
+      "zero": false
+    }
+  ],
+  "axes": [
+    {
+      "scale": "y",
+      "orient": "left",
+      "gridScale": "x",
+      "grid": true,
+      "tickCount": {"signal": "ceil(height/40)"},
+      "domain": false,
+      "labels": false,
+      "aria": false,
+      "maxExtent": 0,
+      "minExtent": 0,
+      "ticks": false,
+      "zindex": 0
+    },
+    {
+      "scale": "x",
+      "orient": "bottom",
+      "grid": false,
+      "title": "Month of the year",
+      "labelAlign": "right",
+      "labelAngle": 270,
+      "labelBaseline": "middle",
+      "zindex": 0
+    },
+    {
+      "scale": "y",
+      "orient": "left",
+      "grid": false,
+      "title": "AQI",
+      "labelOverlap": true,
+      "tickCount": {"signal": "ceil(height/40)"},
+      "zindex": 0
+    }
+  ],
+  "legends": [
+    {
+      "title": "Temperature (°C)",
+      "fill": "color",
+      "gradientLength": {"signal": "clamp(height, 64, 200)"}
+    }
+  ],
+  "config": {}
+}

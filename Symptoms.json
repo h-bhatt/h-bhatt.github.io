@@ -1,0 +1,93 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "Donut Chart with percentage_tooltip",
+  "background": "#f9d2b4",
+  "padding": 5,
+  "width": 300,
+  "height": 300,
+  "title": {
+    "text": "Symptoms experienced due to air pollution across Delhi NCR",
+    "subtitle": [
+      "India; October 2024; 10,555 respondents; Online survey - Local Circles"
+    ],
+    "subtitleFontStyle": "italic",
+    "subtitleFontSize": 10,
+    "subtitlePadding": 5,
+    "anchor": "middle",
+    "color": "black",
+    "frame": "group"
+  },
+  "style": "view",
+  "data": [
+    {
+      "name": "source_0",
+      "values": [
+        {"Symptom": "Sore throat and/or cough", "value": 36},
+        {"Symptom": "Breathing difficulty/asthma", "value": 36},
+        {"Symptom": "Runny nose and/or congestion", "value": 27},
+        {"Symptom": "Have no issue at all due to pollution", "value": 27},
+        {"Symptom": "Burning eyes", "value": 9}
+      ]
+    },
+    {
+      "name": "data_0",
+      "source": "source_0",
+      "transform": [
+        {
+          "type": "stack",
+          "groupby": [],
+          "field": "value",
+          "sort": {"field": ["Symptom"], "order": ["ascending"]},
+          "as": ["value_start", "value_end"],
+          "offset": "normalize"
+        },
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"value\"]) && isFinite(+datum[\"value\"])"
+        }
+      ]
+    }
+  ],
+  "marks": [
+    {
+      "name": "marks",
+      "type": "arc",
+      "style": ["arc"],
+      "from": {"data": "data_0"},
+      "encode": {
+        "update": {
+          "innerRadius": {"value": 50},
+          "tooltip": {
+            "signal": "{\"value\": format(datum[\"value_end\"]-datum[\"value_start\"], \".0%\"), \"Symptom\": isValid(datum[\"Symptom\"]) ? datum[\"Symptom\"] : \"\"+datum[\"Symptom\"]}"
+          },
+          "fill": {"scale": "color", "field": "Symptom"},
+          "description": {
+            "signal": "\"value: \" + (format(datum[\"value_end\"]-datum[\"value_start\"], \".0%\")) + \"; Symptom: \" + (isValid(datum[\"Symptom\"]) ? datum[\"Symptom\"] : \"\"+datum[\"Symptom\"])"
+          },
+          "x": {"signal": "width", "mult": 0.5},
+          "y": {"signal": "height", "mult": 0.5},
+          "outerRadius": {"signal": "min(width,height)/2"},
+          "startAngle": {"scale": "theta", "field": "value_end"},
+          "endAngle": {"scale": "theta", "field": "value_start"}
+        }
+      }
+    }
+  ],
+  "scales": [
+    {
+      "name": "theta",
+      "type": "linear",
+      "domain": [0, 1],
+      "range": [0, 6.283185307179586],
+      "zero": true
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "data_0", "field": "Symptom", "sort": true},
+      "range": "category"
+    }
+  ],
+  "legends": [{"fill": "color", "symbolType": "circle", "title": "Symptom"}],
+  "config": {}
+}

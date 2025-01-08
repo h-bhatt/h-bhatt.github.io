@@ -1,0 +1,239 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "background": "#f9d2b4",
+  "padding": 5,
+  "data": [
+    {"name": "source"},
+    {
+      "name": "source_1",
+      "url": "https://raw.githubusercontent.com/h-bhatt/h-bhatt.github.io/refs/heads/main/India_State_Wise.csv",
+      "format": {"type": "csv", "delimiter": ","}
+    },
+    {
+      "name": "source_0",
+      "url": "https://raw.githubusercontent.com/h-bhatt/h-bhatt.github.io/refs/heads/main/project_data/in.json",
+      "format": {"type": "json", "property": "features", "parse": {}},
+      "transform": [
+        {
+          "type": "formula",
+          "expr": "datum[\"properties\"] && datum[\"properties\"][\"name\"]",
+          "as": "properties.name"
+        }
+      ]
+    },
+    {
+      "name": "data_0",
+      "source": "source_0",
+      "transform": [
+        {
+          "type": "lookup",
+          "from": "source_1",
+          "key": "id",
+          "fields": ["properties.id"],
+          "values": ["pm2"]
+        },
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"pm2\"]) && isFinite(+datum[\"pm2\"])"
+        }
+      ]
+    },
+    {
+      "name": "data_1",
+      "source": "source_0",
+      "transform": [
+        {
+          "type": "lookup",
+          "from": "source_1",
+          "key": "id",
+          "fields": ["properties.id"],
+          "values": ["pm10"]
+        },
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"pm10\"]) && isFinite(+datum[\"pm10\"])"
+        }
+      ]
+    }
+  ],
+  "projections": [
+    {
+      "name": "concat_0_projection",
+      "size": {"signal": "[concat_0_width, concat_0_height]"},
+      "fit": {"signal": "data('data_0')"},
+      "type": "mercator"
+    },
+    {
+      "name": "concat_1_projection",
+      "size": {"signal": "[concat_1_width, concat_1_height]"},
+      "fit": {"signal": "data('data_1')"},
+      "type": "mercator"
+    }
+  ],
+  "signals": [
+    {"name": "concat_0_width", "value": 300},
+    {"name": "concat_0_height", "value": 500},
+    {"name": "concat_1_width", "value": 300},
+    {"name": "concat_1_height", "value": 500},
+    {"name": "concat_2_width", "value": 20},
+    {"name": "concat_2_height", "value": 20}
+  ],
+  "layout": {"padding": 20, "bounds": "full", "align": "each"},
+  "marks": [
+    {
+      "type": "group",
+      "name": "concat_0_group",
+      "title": {
+        "text": "India - PM2.5 Concentrations",
+        "subtitle": [
+          "Average PM2.5 concentrations in the most polluted states, 2023"
+        ],
+        "subtitleFontStyle": "italic",
+        "subtitleFontSize": 12,
+        "subtitlePadding": 5,
+        "color": "black",
+        "frame": "group"
+      },
+      "style": "view",
+      "encode": {
+        "update": {
+          "width": {"signal": "concat_0_width"},
+          "height": {"signal": "concat_0_height"}
+        }
+      },
+      "marks": [
+        {
+          "name": "concat_0_marks",
+          "type": "shape",
+          "style": ["geoshape"],
+          "from": {"data": "data_0"},
+          "encode": {
+            "update": {
+              "stroke": {"value": "darkgray"},
+              "strokeWidth": {"value": 0.5},
+              "fill": {"scale": "color", "field": "pm2"},
+              "tooltip": {
+                "signal": "{\"State\": isValid(datum[\"properties.name\"]) ? datum[\"properties.name\"] : \"\"+datum[\"properties.name\"], \"PM2.5\": isValid(datum[\"pm2\"]) ? datum[\"pm2\"] : \"\"+datum[\"pm2\"]}"
+              },
+              "ariaRoleDescription": {"value": "geoshape"},
+              "description": {
+                "signal": "\"PM2.5 Concentration: \" + (format(datum[\"pm2\"], \"\")) + \"; State: \" + (isValid(datum[\"properties.name\"]) ? datum[\"properties.name\"] : \"\"+datum[\"properties.name\"]) + \"; PM2.5: \" + (isValid(datum[\"pm2\"]) ? datum[\"pm2\"] : \"\"+datum[\"pm2\"])"
+              }
+            }
+          },
+          "transform": [
+            {"type": "geoshape", "projection": "concat_0_projection"}
+          ]
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "concat_1_group",
+      "title": {
+        "text": "India - PM10 Concentrations",
+        "subtitle": [
+          "Average PM10 concentrations in the most polluted states, 2023"
+        ],
+        "subtitleFontStyle": "italic",
+        "subtitleFontSize": 12,
+        "subtitlePadding": 5,
+        "color": "black",
+        "frame": "group"
+      },
+      "style": "view",
+      "encode": {
+        "update": {
+          "width": {"signal": "concat_1_width"},
+          "height": {"signal": "concat_1_height"}
+        }
+      },
+      "marks": [
+        {
+          "name": "concat_1_marks",
+          "type": "shape",
+          "style": ["geoshape"],
+          "from": {"data": "data_1"},
+          "encode": {
+            "update": {
+              "stroke": {"value": "darkgray"},
+              "strokeWidth": {"value": 0.5},
+              "fill": {"scale": "color", "field": "pm10"},
+              "tooltip": {
+                "signal": "{\"State\": isValid(datum[\"properties.name\"]) ? datum[\"properties.name\"] : \"\"+datum[\"properties.name\"], \"PM10\": isValid(datum[\"pm10\"]) ? datum[\"pm10\"] : \"\"+datum[\"pm10\"]}"
+              },
+              "ariaRoleDescription": {"value": "geoshape"},
+              "description": {
+                "signal": "\"PM10 Concentration: \" + (format(datum[\"pm10\"], \"\")) + \"; State: \" + (isValid(datum[\"properties.name\"]) ? datum[\"properties.name\"] : \"\"+datum[\"properties.name\"]) + \"; PM10: \" + (isValid(datum[\"pm10\"]) ? datum[\"pm10\"] : \"\"+datum[\"pm10\"])"
+              }
+            }
+          },
+          "transform": [
+            {"type": "geoshape", "projection": "concat_1_projection"}
+          ]
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "concat_2_group",
+      "style": "view",
+      "encode": {
+        "update": {
+          "width": {"signal": "concat_2_width"},
+          "height": {"signal": "concat_2_height"}
+        }
+      },
+      "marks": [
+        {
+          "name": "concat_2_marks",
+          "type": "text",
+          "style": ["text"],
+          "from": {"data": "source"},
+          "encode": {
+            "update": {
+              "align": {"value": "left"},
+              "dx": {"value": 10},
+              "dy": {"value": 15},
+              "fontSize": {"value": 10},
+              "fontStyle": {"value": "italic"},
+              "fill": {"value": "black"},
+              "x": {"signal": "concat_2_width", "mult": 0.5},
+              "y": {"signal": "concat_2_height", "mult": 0.5},
+              "text": {
+                "value": "Data Source: Five years of the National Clean Air Programme - Climate Trends 2023"
+              },
+              "baseline": {"value": "middle"}
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "linear",
+      "domain": {
+        "fields": [
+          {"data": "data_0", "field": "pm2"},
+          {"data": "data_1", "field": "pm10"}
+        ]
+      },
+      "range": {"scheme": "tealblues"},
+      "interpolate": "hcl",
+      "zero": false
+    }
+  ],
+  "legends": [
+    {
+      "labelFontSize": 10,
+      "orient": "right",
+      "title": "PM2.5 Concentration, PM10 Concentration",
+      "titleFontSize": 12,
+      "fill": "color",
+      "gradientLength": {"signal": "clamp(concat_0_height, 64, 200)"}
+    }
+  ],
+  "config": {}
+}

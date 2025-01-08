@@ -1,0 +1,192 @@
+
+
+
+<!DOCTYPE html>
+<html> 
+   
+<head>    
+    <link rel="stylesheet" type="text/css" href="portfolio.css">
+  <nav class="links">
+        <a href="index.html">Home</a>
+        <a href="project.html">PP434 Project</a>
+        <a href="https://github.com/h-bhatt" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/harshbhatt008">LinkedIn</a>
+        <a href="#other">Other Projects</a>
+        <a href="mailto:harshbhatt.lse@gmail.com?subject=Let's%20Connect&body=Hi!%20I%20came%20across%20your%20profile.">Email Me</a>
+    </nav>
+    <link rel="stylesheet" type="text/css" href="portfolio.css">
+    <title>Harsh Bhatt</title> 
+
+    <!-- This is a link to the vega-lite which we're using to make graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+    <style>
+        #chartGrid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+    </style>
+</head>
+
+<body> 
+    <h1 class="big" style="margin-bottom: 0px;"> 
+       H Bhatt.   
+    </h1>
+ <h2>         Welcome to my portfolio. 
+</h2>
+    </p>
+    <h3 class="small"> 
+   
+
+    <!-- Week 1 -->
+    <section>
+        <div class="chart-description">
+            <h2>CC1 - Hosting charts on your own site.  </h2>
+            <p> 
+                I've added two charts using the "vegaembed" function. The charts have been taken without any alterations from <a href="https://rdeconomist.github.io/library">this website.</a>
+            </p>
+        </div>
+        <figure id="Location1"></figure> <!-- we give it an id so we can put a vega-lite graph here with VegaEmbed -->
+        <figure id="Location2"></figure>
+    </section>
+       
+ <!-- Week 2 -->
+          <section>
+        <div class="chart-description">
+            <h2>CC2 - Create your own visualisations.  </h2>
+            <p> 
+                I've created two charts using the "create" function on <a href="https://www.economicsobservatory.com">Economics Observatory.</a>
+            </p>
+        </div>
+      <div id="chartGrid">
+            <figure id="Indexp"></figure>
+            <figure id="Indimp"></figure>
+        </div>
+        <div class="chart-description">
+            <p>
+                I took the Imports/exports data from the Economics Observatory and used "layer" on vegalite to combine it into one chart.
+            </p>
+            <figure id="impexpcomb"></figure>
+        </div>
+    </section>
+
+
+ <!-- Week 3 -->
+        <section>
+            <div class="chart-description">
+                <h2>CC3 - Use a visualisation in economic/policy commentary.</h2>
+                <p> 
+                    I'm discussing the question "Trading nation: How can we get Britain exporting again?" which was one of the key themes at the  <a href="https://www.economicsobservatory.com/festival-of-economics-2024">Festival of Economics 2024.</a> The UK's exports have consistently increased. Currently, it is 13th largest exporting nation in the world. However, it used to have much high export share in world trade.
+                </p>
+            </div>
+        
+                <figure id="Location3"></figure>
+                <figure id="ukgdpexp"></figure>
+
+            <div class="chart-description">
+                <p>
+                    The UK's exports are rising but remain insufficient to offset its persistently negative trade balance. Aligning export strategies with GDP growth and addressing trade barriers is critical.
+
+                </p>
+                <figure id="uktradbal"></figure>
+            </div>
+        </section>
+
+        <!-- Week 4 -->
+        <section>
+            <div class="chart-description">
+                <h2>CC4 - Re-create, then improve, someone else’s chart.  </h2>
+                <p> 
+                   I came across this chart on "dataisugly" subreddit. This chart was used in <a href="https://loudandclear.byspotify.com">Spotify's Annual Music Economics Report</a>
+                </p>
+            </div>
+            <img src="image.png" > 
+
+          <div id="chartGrid">
+            <p>
+                The spotify chart above is misleading as bars are not commensurate to the values (For ex: 11,600 is shown bigger than 23,400). In order to fix the chart, I adjusted bar heights based on the given data. I also added ticks and numbers on the Y-axis for better scale and readability. Here's the improved replication of the above chart.
+            </p>
+                <figure id="Spotify"></figure>
+            </div>
+            
+        </section>
+
+
+        
+
+        <!-- Week 5 -->
+        <section>
+            <div class="chart-description">
+                <h2>CC5 -  Implement a data scraper of your own.  </h2>
+                <p> 
+                    I've added two charts using the "vegaembed" function. The charts have been taken without any alterations from <a href="https://rdeconomist.github.io/library">this website.</a>
+                </p>
+            </div>
+            <figure id="DelhiAQI"></figure> <!-- we give it an id so we can put a vega-lite graph here with VegaEmbed -->
+        
+        </section>
+
+        <!-- Week 6 -->
+        <section>
+            <div class="chart-description">
+                <h2>CC6.  Loops. Build a dashboard.   </h2>
+                <p> 
+                    I've added two charts using the "vegaembed" function. The charts have been taken without any alterations from <a href="https://rdeconomist.github.io/library">this website.</a>
+                </p>
+            </div>
+            <figure id="FredLoop"></figure> <!-- we give it an id so we can put a vega-lite graph here with VegaEmbed -->
+        
+        </section>
+
+        <!-- Week 7 -->
+
+        <section>
+            <div class="chart-description">
+                <h2>CC7.  Maps. Base maps and choropleths. </h2>
+                <p> 
+                    I've added two charts using the "vegaembed" function. The charts have been taken without any alterations from <a href="https://rdeconomist.github.io/library">this website.</a>
+                </p>
+            </div>
+            <figure id="India"></figure> <!-- we give it an id so we can put a vega-lite graph here with VegaEmbed -->
+            <figure id="Indiapop"></figure>
+            <figure id="air_pol_deaths"></figure>
+        </section>
+
+        <!-- Week 8 -->
+        <!-- Week 9 -->
+        <!-- Week 10 -->
+
+        <footer>
+            <p>© 2025 H Bhatt.</p>
+        </footer>
+
+       <script>
+        // This is a comment in JavaScript - it's a different language to HTML and CSS
+
+        let figure_1_spec = "https://raw.githubusercontent.com/EconomicsObservatory/courses/main/2/s2_chart2.json"; // We're storing the URL of the graph we want to display in a variable
+        let figure_2_spec = "chartLine3.json";                                                                              
+        vegaEmbed('#Location1', figure_1_spec) // We're using the vegaEmbed function to put a graph in the element with id figure_1
+        let figure_3_spec = "wk3_uk_exp.json"; 
+        vegaEmbed('#Location2', figure_2_spec)
+        vegaEmbed("#Indimp", 'wk2_imp.json')
+        vegaEmbed("#Indexp", 'wk2_exp.json')
+        vegaEmbed("#impexpcomb", 'wk2_com.json')
+        vegaEmbed("#Location3", figure_3_spec)
+        vegaEmbed("#ukgdpexp", 'wk3_uk_gdp_exp.json')
+        vegaEmbed("#uktradbal", 'wk3_uk_trad_bal.json')
+        vegaEmbed("#Spotify", 'spotify.json')
+        vegaEmbed("#India", 'India.json')
+        vegaEmbed("#Indiapop", 'India_pop1.json')
+        vegaEmbed("#DelhiAQI", 'Delhi_AQI.json')
+        vegaEmbed("#FredLoop", 'India_fred_loop.json')
+        vegaEmbed("#air_pol_deaths", 'air_pol_deaths.json')
+
+
+    </script>
+
+</body>
+    
+</html>

@@ -1,0 +1,63 @@
+{
+    "$schema": "https://vega.github.io/schema/vega/v5.json",
+    "width": 800,
+    "height": 600,
+    "autosize": "fit",
+    "data": [
+      {
+        "name": "geojson",
+        "url": "https://raw.githubusercontent.com/datameet/Municipal_Spatial_Data/refs/heads/master/Delhi/Delhi_Boundary.geojson",
+        "format": { "type": "json", "property": "features" }
+      },
+      {
+        "name": "pollution",
+        "url": "path/to/pollution_data.json",
+        "format": { "type": "json" }
+      }
+    ],
+    "projections": [
+      {
+        "name": "projection",
+        "type": "mercator",
+        "fit": { "signal": "data('geojson')" },
+        "size": [800, 600]
+      }
+    ],
+    "scales": [
+      {
+        "name": "colorScale",
+        "type": "quantize",
+        "domain": { "data": "pollution", "field": "PM2.5" },
+        "range": ["#edf8fb", "#b2e2e2", "#66c2a4", "#2ca25f", "#006d2c"]
+      }
+    ],
+    "marks": [
+      {
+        "type": "shape",
+        "from": { "data": "geojson" },
+        "encode": {
+          "enter": {
+            "stroke": { "value": "#888" },
+            "strokeWidth": { "value": 0.5 },
+            "fill": { "scale": "colorScale", "field": "properties.area_id" }
+          },
+          "update": {
+            "tooltip": {
+              "signal": "{Area: datum.properties.area_name, PM2.5: datum.properties.PM2_5}"
+            }
+          }
+        },
+        "transform": [
+          { "type": "geopath", "projection": "projection" },
+          {
+            "type": "lookup",
+            "from": "pollution",
+            "key": "area_id",
+            "fields": ["properties.area_id"],
+            "values": ["PM2.5"]
+          }
+        ]
+      }
+    ]
+  }
+  

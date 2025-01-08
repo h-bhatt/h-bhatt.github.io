@@ -1,0 +1,94 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 400,
+  "height": 300,
+  "padding": 5,
+  "background": "#b9f5f1",
+  "data": {
+    "values": [
+      {"category": "$10K+", "Year": "2017", "value": 23400},
+      {"category": "$10K+", "Year": "2023", "value": 66000},
+      {"category": "$100K+", "Year": "2017", "value": 4300},
+      {"category": "$100K+", "Year": "2023", "value": 11600},
+      {"category": "$1M+", "Year": "2017", "value": 460},
+      {"category": "$1M+", "Year": "2023", "value": 1250}
+    ]
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "category",
+      "type": "ordinal",
+      "axis": {
+        "title": null,
+        "labelAngle": 0
+      }, 
+      "sort": ["$10K+", "$100K+", "$1M+"]
+    },
+    "y": {
+      "field": "value",
+      "type": "quantitative",
+      "axis": {
+        "title": "Number of Artists",
+        "orient": "right",
+        "grid": true,
+        "labels": true,
+        "ticks": true
+      }
+    },
+    "xOffset": {"field": "Year"},
+    "color": {
+      "field": "Year",
+      "scale": {
+        "domain": ["2017", "2023"],
+        "range": ["#7C9AF5", "#4100F4"]
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": "bar"
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "dy": -5
+      },
+      "encoding": {
+        "text": {"field": "value", "type": "quantitative"},
+        "x": {"field": "category"},
+        "y": {"field": "value"},
+        "xOffset": {"field": "Year"},
+        "color": {"value": "black"},
+        "fontSize": {"value": 12}
+      }
+    }
+  ],
+  "config": {
+    "legend": {
+      "title": "",
+      "orient": "top-right",
+      "labelFontSize": 12,
+      "symbolShape": "square",
+      "symbolSize": 150
+    }
+  },
+  "annotations": [
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "x": {"value": 380},
+          "y": {"value": 10},
+          "text": {"value": "↑"},
+          "fontSize": {"value": 20},
+          "fontWeight": {"value": "bold"},
+          "align": {"value": "center"},
+          "baseline": {"value": "middle"},
+          "fill": {"value": "black"}
+        }
+      }
+    }
+  ]
+}

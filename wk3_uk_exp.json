@@ -1,119 +1,54 @@
 {
-  "$schema": "https://vega.github.io/schema/vega/v5.json",
-  "autosize": {"type": "fit", "contains": "padding"},
-  "background": "#ffffff",
-  "padding": 5,
-  "height": 250,
-  "title": {
-    "text": "Real Exports",
-    "anchor": "start",
-    "subtitle": "Total trade, £ million GBP | Source: ONS through ECO API",
-    "fontSize": 14,
-    "subtitleFontSize": 12,
-    "color": "#000000",
-    "subtitleColor": "#000000"
-  },
-  "style": "cell",
-  "encode": {
-    "update": {"fill": {"value": "#ffffff"}, "strokeOpacity": {"value": 0}}
-  },
-  "data": [
-    {
-      "name": "source_0",
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": {
+      "text": "Real Exports",
+      "anchor": "start",
+      "subtitle": "Total trade, £ million GBP | Source: ONS through ECO API",
+      "fontSize": 14,
+      "subtitleFontSize": 12,
+      "color": "#000000",
+      "subtitleColor": "#000000"
+    },
+    "height": 250,
+    "width": "container",
+    "autosize": {
+      "type": "fit",
+      "contains": "padding"
+    },
+    "background": "#ffffff",
+    "view": {
+      "fill": "#ffffff",
+      "strokeOpacity": 0
+    },
+    "data": {
       "url": "https://api.economicsobservatory.com/gbr/expo_r?vega",
-      "format": {"type": "json", "parse": {"date": "date"}},
-      "transform": [
-        {
-          "type": "impute",
-          "field": "value",
-          "groupby": [],
-          "key": "date",
-          "method": "value",
-          "value": 0
-        },
-        {
-          "type": "stack",
-          "groupby": ["date"],
-          "field": "value",
-          "sort": {"field": [], "order": []},
-          "as": ["value_start", "value_end"],
-          "offset": "zero"
-        }
-      ]
-    }
-  ],
-  "signals": [
-    {
-      "name": "width",
-      "init": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
-      "on": [
-        {
-          "update": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
-          "events": "window:resize"
-        }
-      ]
-    }
-  ],
-  "marks": [
-    {
-      "name": "marks",
+      "format": {
+        "type": "json"
+      }
+    },
+    "mark": {
       "type": "area",
-      "style": ["area"],
-      "sort": {"field": "x"},
-      "from": {"data": "source_0"},
-      "encode": {
-        "update": {
-          "strokeWidth": {"value": 2},
-          "orient": {"value": "vertical"},
-          "fill": {"value": "#ff8800"},
-          "description": {
-            "signal": "\"date: \" + (timeFormat(datum[\"date\"], '%b %d, %Y')) + \"; value: \" + (format(datum[\"value\"], \"\"))"
-          },
-          "x": {"scale": "x", "field": "date"},
-          "y": {"scale": "y", "field": "value_end"},
-          "y2": {"scale": "y", "field": "value_start"},
-          "defined": {
-            "signal": "isValid(datum[\"date\"]) && isFinite(+datum[\"date\"]) && isValid(datum[\"value\"]) && isFinite(+datum[\"value\"])"
-          }
+      "color": "#7200fe",
+      "strokeWidth": 2
+    },
+    "encoding": {
+      "x": {
+        "field": "date",
+        "type": "temporal",
+        "axis": {
+          "title": "",
+          "titleColor": "#122B39",
+          "grid": false
+        }
+      },
+      "y": {
+        "field": "value",
+        "type": "quantitative",
+        "axis": {
+          "title": "",
+          "titleColor": "#122B39",
+          "grid": false
         }
       }
     }
-  ],
-  "scales": [
-    {
-      "name": "x",
-      "type": "time",
-      "domain": {"data": "source_0", "field": "date"},
-      "range": [0, {"signal": "width"}]
-    },
-    {
-      "name": "y",
-      "type": "linear",
-      "domain": {"data": "source_0", "fields": ["value_start", "value_end"]},
-      "range": [{"signal": "height"}, 0],
-      "nice": true,
-      "zero": true
-    }
-  ],
-  "axes": [
-    {
-      "scale": "x",
-      "orient": "bottom",
-      "grid": false,
-      "titleColor": "#122B39",
-      "labelFlush": true,
-      "labelOverlap": true,
-      "tickCount": {"signal": "ceil(width/40)"},
-      "zindex": 0
-    },
-    {
-      "scale": "y",
-      "orient": "left",
-      "grid": false,
-      "titleColor": "#122B39",
-      "labelOverlap": true,
-      "tickCount": {"signal": "ceil(height/40)"},
-      "zindex": 0
-    }
-  ]
-}
+  }

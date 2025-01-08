@@ -1,0 +1,77 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "background": "#f9d2b4",
+    "description": "Creates year variable, then defines parameters and adds sliders.",
+    "title": {
+      "text": "Deaths attributable to Air Pollution - India",
+    "subtitle": "Data source: Global Burden of Disease Study 2021. IHME, 2024",
+      "subtitleFontStyle": "italic",
+      "subtitleFontSize": 10,  
+      "anchor": "start",
+      "color": "black"
+    },
+    "width": 300,
+    "height": 300,
+    "data": {
+      "url": "https://raw.githubusercontent.com/h-bhatt/h-bhatt.github.io/refs/heads/main/project_data/air_pollution_deaths.csv"
+    },
+    "transform": [
+      { "calculate": "year(datum.Year)", "as": "year" },
+      { "filter": "datum.year >= minYear" },
+      { "filter": "datum.year <= maxYear" },
+      { "calculate": "datum.India", "as": "value" }
+    ],
+    "params": [
+      {
+        "name": "minYear",
+        "value": 1990,
+        "bind": {
+          "input": "range",
+          "min": 1990,
+          "max": 2021,
+          "step": 1,
+          "name": "Start year:"
+        }
+      },
+      {
+        "name": "maxYear",
+        "value": 2022,
+        "bind": {
+          "input": "range",
+          "min": 1963,
+          "max": 2022,
+          "step": 1,
+          "name": "End year:"
+        }
+      }
+    ],
+    "layer": [
+      {
+        "mark": {
+          "type": "bar",
+          "color": "navy"
+        },
+        "encoding": {
+          "x": { "field": "Year", "type": "temporal", "title": null },
+          "y": { "field": "value", "type": "quantitative", "title": "Number of Deaths" },
+          "tooltip": [
+            { "field": "year", "type": "temporal", "title": "Year" },
+            { "field": "value", "type": "quantitative", "title": "Deaths" }
+          ]
+        }
+      },
+      {
+        "mark": {
+          "type": "line",
+          "color": "darkred",
+          "strokeWidth": 5,
+          "opacity": 1
+        },
+        "encoding": {
+          "x": { "field": "Year", "type": "temporal" },
+          "y": { "field": "value", "type": "quantitative" }
+        }
+      }
+    ]
+  }
+  

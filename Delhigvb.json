@@ -1,0 +1,217 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "background": "#f9d2b4",
+  "padding": 5,
+  "height": 200,
+  "title": {
+    "text": "Delhi - AQI Values",
+    "subtitle": ["Good AQI days vs Bad AQI days; Source: PIB"],
+    "subtitleFontStyle": "italic",
+    "subtitleFontSize": 12,
+    "subtitlePadding": 5,
+    "color": "black",
+    "frame": "group"
+  },
+  "style": "cell",
+  "data": [
+    {
+      "name": "source_0",
+      "values": [
+        {
+          "Year": "2018",
+          "Air quality Days": "Good to Moderate (<200)",
+          "value": 159
+        },
+        {
+          "Year": "2018",
+          "Air quality Days": "Poor to Severe (201 – 400+)",
+          "value": 206
+        },
+        {
+          "Year": "2019",
+          "Air quality Days": "Good to Moderate (<200)",
+          "value": 182
+        },
+        {
+          "Year": "2019",
+          "Air quality Days": "Poor to Severe (201 – 400+)",
+          "value": 183
+        },
+        {
+          "Year": "2020",
+          "Air quality Days": "Good to Moderate (<200)",
+          "value": 227
+        },
+        {
+          "Year": "2020",
+          "Air quality Days": "Poor to Severe (201 – 400+)",
+          "value": 139
+        },
+        {
+          "Year": "2021",
+          "Air quality Days": "Good to Moderate (<200)",
+          "value": 197
+        },
+        {
+          "Year": "2021",
+          "Air quality Days": "Poor to Severe (201 – 400+)",
+          "value": 168
+        },
+        {
+          "Year": "2022",
+          "Air quality Days": "Good to Moderate (<200)",
+          "value": 163
+        },
+        {
+          "Year": "2022",
+          "Air quality Days": "Poor to Severe (201 – 400+)",
+          "value": 202
+        },
+        {
+          "Year": "2023",
+          "Air quality Days": "Good to Moderate (<200)",
+          "value": 206
+        },
+        {
+          "Year": "2023",
+          "Air quality Days": "Poor to Severe (201 – 400+)",
+          "value": 159
+        },
+        {
+          "Year": "2024",
+          "Air quality Days": "Good to Moderate (<200)",
+          "value": 209
+        },
+        {
+          "Year": "2024",
+          "Air quality Days": "Poor to Severe (201 – 400+)",
+          "value": 157
+        }
+      ]
+    },
+    {
+      "name": "data_0",
+      "source": "source_0",
+      "transform": [
+        {
+          "type": "stack",
+          "groupby": ["Year", "Air quality Days"],
+          "field": "value",
+          "sort": {"field": [], "order": []},
+          "as": ["value_start", "value_end"],
+          "offset": "zero"
+        },
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"value\"]) && isFinite(+datum[\"value\"])"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    {
+      "name": "x_step",
+      "update": "20 * bandspace(domain('xOffset').length, 0, 0) / (1-0.2)"
+    },
+    {
+      "name": "width",
+      "update": "bandspace(domain('x').length, 0.2, 0.2) * x_step"
+    }
+  ],
+  "marks": [
+    {
+      "name": "marks",
+      "type": "rect",
+      "style": ["bar"],
+      "from": {"data": "data_0"},
+      "encode": {
+        "update": {
+          "fill": {"scale": "color", "field": "Air quality Days"},
+          "tooltip": {
+            "signal": "{\"AQI Value\": format(datum[\"value\"], \"\")}"
+          },
+          "ariaRoleDescription": {"value": "bar"},
+          "description": {
+            "signal": "\"Year: \" + (isValid(datum[\"Year\"]) ? datum[\"Year\"] : \"\"+datum[\"Year\"]) + \"; value: \" + (format(datum[\"value\"], \"\")) + \"; Air quality Days: \" + (isValid(datum[\"Air quality Days\"]) ? datum[\"Air quality Days\"] : \"\"+datum[\"Air quality Days\"]) + \"; AQI Value: \" + (format(datum[\"value\"], \"\"))"
+          },
+          "x": {
+            "scale": "x",
+            "field": "Year",
+            "offset": {"scale": "xOffset", "field": "Air quality Days"}
+          },
+          "width": {"signal": "max(0.25, bandwidth('xOffset'))"},
+          "y": {"scale": "y", "field": "value_end"},
+          "y2": {"scale": "y", "field": "value_start"}
+        }
+      }
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "band",
+      "domain": {"data": "data_0", "field": "Year", "sort": true},
+      "range": {"step": {"signal": "x_step"}},
+      "paddingInner": 0.2,
+      "paddingOuter": 0.2
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "domain": {"data": "data_0", "fields": ["value_start", "value_end"]},
+      "range": [{"signal": "height"}, 0],
+      "nice": true,
+      "zero": true
+    },
+    {
+      "name": "xOffset",
+      "type": "band",
+      "domain": {"data": "data_0", "field": "Air quality Days", "sort": true},
+      "range": {"step": 20}
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": ["Good to Moderate (<200)", "Poor to Severe (201 – 400+)"],
+      "range": ["#5FA777", "#8B0000"]
+    }
+  ],
+  "axes": [
+    {
+      "scale": "y",
+      "orient": "left",
+      "gridScale": "x",
+      "grid": true,
+      "tickCount": {"signal": "ceil(height/40)"},
+      "domain": false,
+      "labels": false,
+      "aria": false,
+      "maxExtent": 0,
+      "minExtent": 0,
+      "ticks": false,
+      "zindex": 0
+    },
+    {
+      "scale": "x",
+      "orient": "bottom",
+      "grid": false,
+      "title": "Year",
+      "labelAngle": 0,
+      "labelBaseline": "top",
+      "zindex": 0
+    },
+    {
+      "scale": "y",
+      "orient": "left",
+      "grid": false,
+      "title": "AQI Value",
+      "labelOverlap": true,
+      "tickCount": {"signal": "ceil(height/40)"},
+      "zindex": 0
+    }
+  ],
+  "legends": [
+    {"fill": "color", "symbolType": "square", "title": "Air quality Days"}
+  ],
+  "config": {}
+}

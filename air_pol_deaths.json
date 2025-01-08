@@ -1,0 +1,195 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "Creates year variable, then defines parameters and adds sliders.",
+  "background": "#f9d2b4",
+  "padding": 5,
+  "width": 300,
+  "height": 300,
+  "title": {
+    "text": "Deaths attributable to Air Pollution - India",
+    "subtitle": "Data source: Global Burden of Disease Study 2021. IHME, 2024",
+    "subtitleFontStyle": "italic",
+    "subtitleFontSize": 10,
+    "anchor": "start",
+    "color": "black"
+  },
+  "style": "cell",
+  "data": [
+    {
+      "name": "source_0",
+      "url": "https://raw.githubusercontent.com/h-bhatt/h-bhatt.github.io/refs/heads/main/project_data/air_pollution_deaths.csv",
+      "format": {"type": "csv", "parse": {"Year": "date"}, "delimiter": ","},
+      "transform": [
+        {"type": "formula", "expr": "year(datum.Year)", "as": "year"},
+        {"type": "filter", "expr": "datum.year >= minYear"},
+        {"type": "filter", "expr": "datum.year <= maxYear"},
+        {"type": "formula", "expr": "datum.India", "as": "value"}
+      ]
+    },
+    {
+      "name": "data_0",
+      "source": "source_0",
+      "transform": [
+        {
+          "type": "stack",
+          "groupby": ["Year"],
+          "field": "value",
+          "sort": {"field": [], "order": []},
+          "as": ["value_start", "value_end"],
+          "offset": "zero"
+        },
+        {
+          "type": "filter",
+          "expr": "(isDate(datum[\"Year\"]) || (isValid(datum[\"Year\"]) && isFinite(+datum[\"Year\"]))) && isValid(datum[\"value\"]) && isFinite(+datum[\"value\"])"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    {
+      "name": "minYear",
+      "value": 1990,
+      "bind": {
+        "input": "range",
+        "min": 1990,
+        "max": 2021,
+        "step": 1,
+        "name": "Start year:"
+      }
+    },
+    {
+      "name": "maxYear",
+      "value": 2022,
+      "bind": {
+        "input": "range",
+        "min": 1963,
+        "max": 2022,
+        "step": 1,
+        "name": "End year:"
+      }
+    }
+  ],
+  "marks": [
+    {
+      "name": "layer_0_marks",
+      "type": "rect",
+      "style": ["bar"],
+      "from": {"data": "data_0"},
+      "encode": {
+        "update": {
+          "fill": {"value": "navy"},
+          "tooltip": {
+            "signal": "{\"Year\": timeFormat(datum[\"year\"], '%b %d, %Y'), \"Deaths\": format(datum[\"value\"], \"\")}"
+          },
+          "ariaRoleDescription": {"value": "bar"},
+          "description": {
+            "signal": "\"Year: \" + (timeFormat(datum[\"Year\"], '%b %d, %Y')) + \"; Number of Deaths: \" + (format(datum[\"value\"], \"\")) + \"; Deaths: \" + (format(datum[\"value\"], \"\"))"
+          },
+          "xc": {"scale": "x", "field": "Year"},
+          "width": {"value": 5},
+          "y": {"scale": "y", "field": "value_end"},
+          "y2": {"scale": "y", "field": "value_start"}
+        }
+      }
+    },
+    {
+      "name": "layer_1_marks",
+      "type": "line",
+      "style": ["line"],
+      "sort": {"field": "x"},
+      "from": {"data": "source_0"},
+      "encode": {
+        "update": {
+          "opacity": {"value": 1},
+          "strokeWidth": {"value": 5},
+          "stroke": {"value": "darkred"},
+          "description": {
+            "signal": "\"Year: \" + (timeFormat(datum[\"Year\"], '%b %d, %Y')) + \"; value: \" + (format(datum[\"value\"], \"\"))"
+          },
+          "x": {"scale": "x", "field": "Year"},
+          "y": {"scale": "y", "field": "value"},
+          "defined": {
+            "signal": "isValid(datum[\"Year\"]) && isFinite(+datum[\"Year\"]) && isValid(datum[\"value\"]) && isFinite(+datum[\"value\"])"
+          }
+        }
+      }
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "time",
+      "domain": {
+        "fields": [
+          {"data": "data_0", "field": "Year"},
+          {"data": "source_0", "field": "Year"}
+        ]
+      },
+      "range": [0, {"signal": "width"}],
+      "padding": 5
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "domain": {
+        "fields": [
+          {"data": "data_0", "field": "value_start"},
+          {"data": "data_0", "field": "value_end"},
+          {"data": "source_0", "field": "value"}
+        ]
+      },
+      "range": [{"signal": "height"}, 0],
+      "nice": true,
+      "zero": true
+    }
+  ],
+  "axes": [
+    {
+      "scale": "x",
+      "orient": "bottom",
+      "gridScale": "y",
+      "grid": true,
+      "tickCount": {"signal": "ceil(width/40)"},
+      "domain": false,
+      "labels": false,
+      "aria": false,
+      "maxExtent": 0,
+      "minExtent": 0,
+      "ticks": false,
+      "zindex": 0
+    },
+    {
+      "scale": "y",
+      "orient": "left",
+      "gridScale": "x",
+      "grid": true,
+      "tickCount": {"signal": "ceil(height/40)"},
+      "domain": false,
+      "labels": false,
+      "aria": false,
+      "maxExtent": 0,
+      "minExtent": 0,
+      "ticks": false,
+      "zindex": 0
+    },
+    {
+      "scale": "x",
+      "orient": "bottom",
+      "grid": false,
+      "labelFlush": true,
+      "labelOverlap": true,
+      "tickCount": {"signal": "ceil(width/40)"},
+      "zindex": 0
+    },
+    {
+      "scale": "y",
+      "orient": "left",
+      "grid": false,
+      "title": "Number of Deaths",
+      "labelOverlap": true,
+      "tickCount": {"signal": "ceil(height/40)"},
+      "zindex": 0
+    }
+  ],
+  "config": {}
+}

@@ -1,0 +1,181 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "background": "#f9d2b4",
+  "padding": 5,
+  "height": 200,
+  "title": {
+    "text": "Delhi - Monthly mean Rainfall vs AQI",
+    "subtitleFontStyle": "italic",
+    "subtitleFontSize": 12,
+    "subtitlePadding": 5,
+    "color": "black",
+    "frame": "group"
+  },
+  "style": "cell",
+  "data": [
+    {
+      "name": "source_0",
+      "values": [
+        {"month": "January", "aqi": 355, "rain": 19.1},
+        {"month": "February", "aqi": 218, "rain": 21.3},
+        {"month": "March", "aqi": 176, "rain": 17.4},
+        {"month": "April", "aqi": 182, "rain": 16.3},
+        {"month": "May", "aqi": 223, "rain": 30.7},
+        {"month": "June", "aqi": 179, "rain": 74.1},
+        {"month": "July", "aqi": 96, "rain": 209},
+        {"month": "August", "aqi": 72, "rain": 233.1},
+        {"month": "September", "aqi": 105, "rain": 123.5},
+        {"month": "October", "aqi": 234, "rain": 15.1},
+        {"month": "November", "aqi": 374, "rain": 6},
+        {"month": "December", "aqi": 294, "rain": 8.1}
+      ]
+    },
+    {
+      "name": "data_0",
+      "source": "source_0",
+      "transform": [
+        {
+          "type": "formula",
+          "expr": "datum[\"month\"]===\"January\" ? 0 : datum[\"month\"]===\"February\" ? 1 : datum[\"month\"]===\"March\" ? 2 : datum[\"month\"]===\"April\" ? 3 : datum[\"month\"]===\"May\" ? 4 : datum[\"month\"]===\"June\" ? 5 : datum[\"month\"]===\"July\" ? 6 : datum[\"month\"]===\"August\" ? 7 : datum[\"month\"]===\"September\" ? 8 : datum[\"month\"]===\"October\" ? 9 : datum[\"month\"]===\"November\" ? 10 : datum[\"month\"]===\"December\" ? 11 : 12",
+          "as": "x_month_sort_index"
+        }
+      ]
+    },
+    {
+      "name": "data_1",
+      "source": "data_0",
+      "transform": [
+        {
+          "type": "stack",
+          "groupby": ["month"],
+          "field": "aqi",
+          "sort": {"field": [], "order": []},
+          "as": ["aqi_start", "aqi_end"],
+          "offset": "zero"
+        },
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"aqi\"]) && isFinite(+datum[\"aqi\"])"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    {"name": "x_step", "value": 20},
+    {
+      "name": "width",
+      "update": "bandspace(domain('x').length, 0.1, 0.05) * x_step"
+    }
+  ],
+  "marks": [
+    {
+      "name": "layer_0_marks",
+      "type": "rect",
+      "style": ["bar"],
+      "from": {"data": "data_1"},
+      "encode": {
+        "update": {
+          "fill": {"value": "#4c78a8"},
+          "tooltip": {
+            "signal": "{\"Month\": isValid(datum[\"month\"]) ? datum[\"month\"] : \"\"+datum[\"month\"], \"AQI\": isValid(datum[\"aqi\"]) ? datum[\"aqi\"] : \"\"+datum[\"aqi\"]}"
+          },
+          "ariaRoleDescription": {"value": "bar"},
+          "description": {
+            "signal": "\"Month of the year: \" + (isValid(datum[\"month\"]) ? datum[\"month\"] : \"\"+datum[\"month\"]) + \"; AQI: \" + (format(datum[\"aqi\"], \"\")) + \"; Month: \" + (isValid(datum[\"month\"]) ? datum[\"month\"] : \"\"+datum[\"month\"])"
+          },
+          "x": {"scale": "x", "field": "month"},
+          "width": {"signal": "max(0.25, bandwidth('x'))"},
+          "y": {"scale": "y", "field": "aqi_end"},
+          "y2": {"scale": "y", "field": "aqi_start"}
+        }
+      }
+    },
+    {
+      "name": "layer_1_marks",
+      "type": "line",
+      "style": ["line"],
+      "sort": {"field": "x"},
+      "from": {"data": "data_0"},
+      "encode": {
+        "update": {
+          "stroke": {"value": "red"},
+          "tooltip": {
+            "signal": "{\"Month\": isValid(datum[\"month\"]) ? datum[\"month\"] : \"\"+datum[\"month\"], \"Rain (mm)\": isValid(datum[\"rain\"]) ? datum[\"rain\"] : \"\"+datum[\"rain\"]}"
+          },
+          "description": {
+            "signal": "\"Month of the year: \" + (isValid(datum[\"month\"]) ? datum[\"month\"] : \"\"+datum[\"month\"]) + \"; Rain (mm): \" + (format(datum[\"rain\"], \"\")) + \"; Month: \" + (isValid(datum[\"month\"]) ? datum[\"month\"] : \"\"+datum[\"month\"])"
+          },
+          "x": {"scale": "x", "field": "month", "band": 0.5},
+          "y": {"scale": "y", "field": "rain"},
+          "defined": {
+            "signal": "isValid(datum[\"rain\"]) && isFinite(+datum[\"rain\"])"
+          }
+        }
+      }
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "band",
+      "domain": {
+        "data": "data_0",
+        "field": "month",
+        "sort": {"op": "min", "field": "x_month_sort_index"}
+      },
+      "range": {"step": {"signal": "x_step"}},
+      "paddingInner": 0.1,
+      "paddingOuter": 0.05
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "domain": {
+        "fields": [
+          {"data": "data_1", "field": "aqi_start"},
+          {"data": "data_1", "field": "aqi_end"},
+          {"data": "data_0", "field": "rain"}
+        ]
+      },
+      "range": [{"signal": "height"}, 0],
+      "nice": true,
+      "zero": true
+    }
+  ],
+  "axes": [
+    {
+      "scale": "y",
+      "orient": "left",
+      "gridScale": "x",
+      "grid": true,
+      "tickCount": {"signal": "ceil(height/40)"},
+      "domain": false,
+      "labels": false,
+      "aria": false,
+      "maxExtent": 0,
+      "minExtent": 0,
+      "ticks": false,
+      "zindex": 0
+    },
+    {
+      "scale": "x",
+      "orient": "bottom",
+      "grid": false,
+      "title": "Month of the year",
+      "labelAngle": 315,
+      "labelAlign": "right",
+      "labelBaseline": "top",
+      "zindex": 0
+    },
+    {
+      "scale": "y",
+      "orient": "left",
+      "grid": false,
+      "title": "AQI, Rain (mm)",
+      "labelOverlap": true,
+      "tickCount": {"signal": "ceil(height/40)"},
+      "zindex": 0
+    }
+  ],
+  "config": {}
+}

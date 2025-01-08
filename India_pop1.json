@@ -26,13 +26,13 @@
           "fields": ["Population", "Country"]
         }
       },
-      {"calculate": "replace(datum.Population, ',', '')", "as": "PopulationNumeric"}
+      {"calculate": "replace(datum.Population, ',', '')", "as": "Population"}
     ],
     "projection": {"type": "mercator"},
     "mark": {"type": "geoshape", "stroke": "darkgray", "strokeWidth": 0.5},
     "encoding": {
       "color": {
-        "field": "PopulationNumeric",
+        "field": "Population",
         "type": "quantitative",
         "scale": {"scheme": "blues"}
       },

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="project.css">
+    <nav class="links">
+        <a href="index.html">Home</a>
+        <a href="portfolio.html">PP434 Portfolio</a>
+        <a href="https://github.com/h-bhatt" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/harshbhatt008">LinkedIn</a>
+        <a href="#other">Other Projects</a>
+        <a href="mailto:harshbhatt.lse@gmail.com?subject=Let's%20Connect&body=Hi!%20I%20came%20across%20your%20profile.">Email Me</a>
+    </nav>
+    <title>Air Pollution in India: Analysis and Impact</title>
+    <link rel="stylesheet" href="project.css">
+    <!-- This is a link to the vega-lite which we're using to make graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+    <style>
+        #chartGrid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1>Air Pollution in India: A visual story</h1>
+                <h2> Analysis and Impact</h2>
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="container">
+        <section>
+            <h2>Aims of the Project</h2>
+            <p>The primary aim of this project is to analyze the extent of air pollution in India, with a specific focus on Delhi, and to understand its impact on public health and mortality rates. By visualizing real-time and historical data on air pollutants such as PM2.5 and PM10, the project seeks to highlight the severity of air pollution and its impact on health outcomes. The rapid industrialization, urbanization, and increasing vehicular emissions have led to a dramatic rise in air pollution levels, making it one of the most pressing challenges for the nation. Among the various pollutants, particulate matter (PM2.5 and PM10) poses the greatest threat to human health due to its ability to penetrate deep into the respiratory system. By visualizing real-time and historical data on air pollutants such as PM2.5 and PM10, the project seeks to highlight the severity of air pollution and its impact on health outcomes.
+
+            </p>
+           
+        </section>
+
+        <figure id="air_pol_deaths"></figure>
+        <figure id="ukvi"></figure>
+
+        <p>To put this into perspective, WHO air quality guideline (AQG) states that annual average concentrations of PM2.5 should not exceed 5 µg/m3, while 24-hour average exposures should not exceed 15 µg/m3 more than 3 - 4 days per year.</p>
+        
+        
+        <figure id="Symp"></figure>
+
+        <p> Exposure to high levels of air pollutants, especially PM2.5 and PM10, is associated with a range of adverse health outcomes. These fine particles can enter the bloodstream and affect various organs, leading to respiratory and cardiovascular diseases, lung cancer, and even premature death. Children, the elderly, and individuals with pre-existing health conditions are particularly vulnerable to the harmful effects of air pollution.
+
+            Respiratory diseases such as asthma, chronic obstructive pulmonary disease (COPD), and bronchitis are exacerbated by poor air quality. Long-term exposure to polluted air can reduce lung function and increase the risk of respiratory infections. Cardiovascular diseases, including heart attacks and strokes, are also linked to air pollution. Studies have shown that high levels of air pollution can trigger heart attacks and worsen heart conditions, leading to increased hospital admissions and mortality rates</p>
+       
+        
+            
+            <figure id="IndMap"></figure>
+            <p>*Data Source: Five years of the National Clean Air Programme - Climate Trends 2023</p>
+            <p>Visualization posed its own set of challenges, particularly in representing complex data in an easily understandable format. Tools such as Vega-Lite and Plotly were used to create interactive and informative visualizations. These tools allowed for the layering of multiple data points, providing a comprehensive view of the air pollution scenario in Delhi and its health impacts.</p>
+
+        </section>
+
+        <figure id="delgvb"></figure>
+        <p>Delhi, the capital city of India, is one of the most polluted cities in the world. The city's air quality frequently reaches hazardous levels, particularly during the winter months when the Air Quality Index (AQI) often dips into the "severe" category. Several factors contribute to Delhi's severe air pollution, including vehicular emissions, industrial activities, construction dust, and the burning of crop stubble in neighboring states</p>
+        <figure id="dtempaqi"></figure>
+        <figure id="drainaqi"></figure>
+        <figure id="dhumidaqi"></figure>
+        <section id="data">
+            <h2>Data Used and Access Methods</h2>
+            <p>The data for this project is sourced from various reputable sources, including the World Air Quality Index (WAQI) , the Central Pollution Control Board (CPCB), Press Bureau of India (PIB) and the Delhi Pollution Control Committee (DPCC). I used web scraping on websites such as 1. Statista 2.WAQI API 3.PIB,etc using Python scripts, the links of which can be found here. Additionally, data on health impacts and mortality rates due to air pollution is obtained from studies published in journals such as The Lancet Planetary Health and reports from the Global Observatory on Pollution and Health.</p>
+            <p> The data was then cleaned and processed using python libraries, an example of which can be found here. </p>
+        </section>
+
+        <section id="challenges"><h2>Challenges in Data Cleaning and Analysis</h2>
+            <p>One of the significant challenges in this project was dealing with missing or inconsistent data. Air quality data from different sources often had discrepancies in terms of measurement units, time intervals, and geographic coverage. To overcome this, data normalization techniques were applied to ensure consistency. Missing values were handled using interpolation methods and, where necessary, data imputation techniques.</p>
+            <p>Another challenge was the integration of health and mortality data with air quality data. This required careful alignment of datasets based on time and location to draw meaningful correlations. Advanced statistical methods and machine learning algorithms were employed to analyze the relationship between air pollution levels and health outcomes.</p></section>
+        <section id="conclusions">
+            <h2>Conclusions</h2>
+            <p>The analysis revealed a stark reality: air pollution in Delhi is at hazardous levels, significantly exceeding the World Health Organization's (WHO) recommended limits. The data showed that PM2.5 and PM10 levels in Delhi often reach several times the safe limits, posing severe health risks to the population. Long-term exposure to these pollutants is linked to respiratory diseases, cardiovascular problems, and increased mortality rates.</p>
+            <p>The visualizations clearly demonstrated the correlation between high pollution levels and spikes in health issues and deaths. For instance, during periods of high PM2.5 concentrations, there was a noticeable increase in hospital admissions for respiratory and cardiovascular conditions. The data also highlighted the disproportionate impact on vulnerable populations, such as children and the elderly.</p>
+            <p>In conclusion, this project underscores the urgent need for stringent air quality control measures in Delhi and across India. It calls for immediate action from policymakers to implement effective pollution reduction strategies, such as stricter emission regulations, promotion of cleaner energy sources, and public awareness campaigns. By providing a detailed analysis and visual representation of the air pollution crisis, this project aims to contribute to the ongoing efforts to improve air quality and protect public health in India.</p>
+        </section>
+
+       
+       
+        </section>
+    </div>
+
+    <footer>
+        <p>© 2025 H Bhatt.</p>
+    </footer>
+
+
+    <script>
+        // This is a comment in JavaScript - it's a different language to HTML and CSS
+
+        
+       
+        vegaEmbed("#air_pol_deaths", 'air_pol_deaths.json')
+        vegaEmbed("#Symp", 'Symptoms.json')
+        vegaEmbed("#ukvi", 'ukvi.json')
+        vegaEmbed("#IndMap", 'IndiaPM_maps.json')
+        vegaEmbed("#delgvb", 'delhigvb.json')
+        vegaEmbed("#dtempaqi", 'dtempaqi.json')
+        vegaEmbed("#drainaqi", 'drainaqi.json')
+        vegaEmbed("#dhumidaqi", 'dhumidaqi.json')
+    
+        
+        
+
+
+    </script>
+</body>
+</html>
