@@ -1,4 +1,4 @@
-﻿id,ID,name,PM2.5,Change2.5,PM10,Change10
+﻿ID,id,name,PM2.5,Change2.5,PM10,Change10
 10,INDL,Delhi,102,-5.9,208.4,-3.9
 13,INHR,Haryana,87.9,-7,196.4,
 6,INBR,Bihar,77.3,-25.4,170.7,-14.9
