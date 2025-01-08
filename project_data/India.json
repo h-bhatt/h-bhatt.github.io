@@ -1,0 +1,26 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 500,
+    "height": 300,
+    "title": {
+      "text": "India - base map",
+      "subtitle": ["States of India"],
+      "subtitleFontStyle": "italic",
+      "subtitleFontSize": 10,
+      "subtitlePadding": 5,
+      "anchor": "middle",
+      "color": "black"
+    },
+    "data": {
+      "url": "in.json",
+      "format": {"property": "features"}
+    },
+    "projection": {"type": "mercator"},
+    "mark": {
+      "type": "geoshape",
+      "fill": "lightgoldenrodyellow",
+      "stroke": "darkgray",
+      "strokeWidth": 0.5
+    },
+    "encoding": {"tooltip": {"field": "properties.name"}}
+  }
