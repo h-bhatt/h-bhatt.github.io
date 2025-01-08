@@ -1,0 +1,37 @@
+id,ID,State,Population,Country,pm2,change2,pm10,change10
+INAN,1,Andaman and Nicobar Islands,404000,Guadeloupe
+INAP,3,Andhra Pradesh,53402000,Colombia
+INAR,4,Arunachal Pradesh,1580000,Trinidad and Tobago
+INAS,5,Assam,36159000,Uzbekistan
+INBR,6,Bihar,129205000,Mexico,77.3,-25.4,170.7,-14.9
+INCH,7,Chandigarh,1247000,Cyprus,59.3,-5.6,118.4,13.6
+INCT,8,Chhattisgarh,30638000,Madagascar
+INDH,9,Dadra & Nagar Haveli and Daman & Diu,1387000,Timor-Leste
+INDL,10,Delhi,21884000,Sri Lanka,102,-5.9,208.4,-3.9
+INGA,11,Goa,1585000,Trinidad and Tobago
+INGJ,12,Gujarat,72653000,Thailand,53.5,-13.3,121.9,1.5
+INHR,13,Haryana,30694000,Madagascar,87.9,-7,196.4,
+INHP,14,Himachal Pradesh,7518000,"China, Hong Kong SAR",60.2,,134.7,
+INJK,35,Jammu & Kashmir,13733000,Burundi
+INJH,15,Jharkhand,40129000,Poland,70.3,,112.9,
+INKA,16,Karnataka,68256000,United Kingdom
+INKL,17,Kerala,35967000,Uzbekistan
+INLA,36,Ladakh,302000,New Caledonia
+INLD,34,Lakshadweep,69000,Cayman Islands
+INMP,18,Madhya Pradesh,87954000,Turkiye
+INMH,19,Maharashtra,127684000,Mexico
+INMN,20,Manipur,3260000,Puerto Rico
+INML,21,Meghalaya,3387000,Uruguay
+INMZ,22,Mizoram,1252000,Cyprus
+INNL,23,Nagaland,2258000,Guinea-Bissau
+INOR,24,Odisha,46663000,Iraq,57.6,16.5,119.6,-32.5
+INPY,25,Puducherry,1695000,Kosovo
+INPB,26,Punjab,30992000,Madagascar,53.9,7.7,,
+INRJ,27,Rajasthan,82188000,Germany,,,112.6,-5.2
+INSK,28,Sikkim,697000,"China, Macao SAR"
+INTN,29,Tamil Nadu,77165000,Thailand
+INTG,2,Telangana,38317000,Morocco
+INTR,30,Tripura,4194000,Kuwait
+INUP,31,Uttar Pradesh,238875000,Pakistan,51.4,-51,112.7,-50.3
+INUT,32,Uttarakhand,11795000,Haiti
+INWB,33,West Bengal,99723000,Viet Nam
