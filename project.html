@@ -44,11 +44,12 @@
             <p>The primary aim of this project is to analyze the extent of air pollution in India, with a specific focus on Delhi, and to understand its impact on public health and mortality rates. By visualizing real-time and historical data on air pollutants such as PM2.5 and PM10, the project seeks to highlight the severity of air pollution and its impact on health outcomes. The rapid industrialization, urbanization, and increasing vehicular emissions have led to a dramatic rise in air pollution levels, making it one of the most pressing challenges for the nation. Among the various pollutants, particulate matter (PM2.5 and PM10) poses the greatest threat to human health due to its ability to penetrate deep into the respiratory system. By visualizing real-time and historical data on air pollutants such as PM2.5 and PM10, the project seeks to highlight the severity of air pollution and its impact on health outcomes.
 
             </p>
-           
+           <figure id="air_pol_deaths"></figure>
+        <figure id="ukvi"></figure>
         </section>
 
-        <figure id="air_pol_deaths"></figure>
-        <figure id="ukvi"></figure>
+    </div>
+    <div class="container">
 
         <p>To put this into perspective, WHO air quality guideline (AQG) states that annual average concentrations of PM2.5 should not exceed 5 µg/m3, while 24-hour average exposures should not exceed 15 µg/m3 more than 3 - 4 days per year.</p>
         
@@ -66,12 +67,15 @@
             <p>Visualization posed its own set of challenges, particularly in representing complex data in an easily understandable format. Tools such as Vega-Lite and Plotly were used to create interactive and informative visualizations. These tools allowed for the layering of multiple data points, providing a comprehensive view of the air pollution scenario in Delhi and its health impacts.</p>
 
         </section>
-
+    </div>
+        <div class="container">
+<section>
         <figure id="delgvb"></figure>
         <p>Delhi, the capital city of India, is one of the most polluted cities in the world. The city's air quality frequently reaches hazardous levels, particularly during the winter months when the Air Quality Index (AQI) often dips into the "severe" category. Several factors contribute to Delhi's severe air pollution, including vehicular emissions, industrial activities, construction dust, and the burning of crop stubble in neighboring states</p>
         <figure id="dtempaqi"></figure>
         <figure id="drainaqi"></figure>
         <figure id="dhumidaqi"></figure>
+            </section>
         <section id="data">
             <h2>Data Used and Access Methods</h2>
             <p>The data for this project is sourced from various reputable sources, including the World Air Quality Index (WAQI) , the Central Pollution Control Board (CPCB), Press Bureau of India (PIB) and the Delhi Pollution Control Committee (DPCC). I used web scraping on websites such as 1. Statista 2.WAQI API 3.PIB,etc using Python scripts, the links of which can be found <a href="https://github.com/h-bhatt/h-bhatt.github.io/blob/main/Delhi_pollution_data_processing.ipynb">here.</a> Additionally, data on health impacts and mortality rates due to air pollution is obtained from studies published in journals such as The Lancet Planetary Health and reports from the Global Observatory on Pollution and Health.</p>
@@ -87,7 +91,6 @@
             
             <p>In conclusion, this project underscores the urgent need for stringent air quality control measures in Delhi and across India. It calls for immediate action from policymakers to implement effective pollution reduction strategies, such as stricter emission regulations, promotion of cleaner energy sources, and public awareness campaigns. By providing a detailed analysis and visual representation of the air pollution crisis, this project aims to contribute to the ongoing efforts to improve air quality and protect public health in India. I wish there was more data relating health outcomes and High AQI, PM2.5, and PM10 levels. Future Scope: More rigorous and advanced scraping for data and more data cleaning will lead to better analysis.</p>
         </section>
-
        
        
         </section>
