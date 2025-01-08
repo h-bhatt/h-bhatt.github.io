@@ -11,7 +11,7 @@
       "color": "black"
     },
     "data": {
-      "url": "path_to_your_geojson/in.json",
+      "url": "in.json",
       "format": {"type": "json", "property": "features"}
     },
     "transform": [
@@ -19,7 +19,7 @@
         "lookup": "properties.id",
         "from": {
           "data": {
-            "url": "path_to_your_csv/India_State_Wise.csv",
+            "url": "India_State_Wise.csv",
             "format": {"type": "csv"}
           },
           "key": "id",
